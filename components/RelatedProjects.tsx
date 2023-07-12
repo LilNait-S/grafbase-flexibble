@@ -43,6 +43,10 @@ const RelatedProjects = async ({ projectId, userId }: Props) => {
                 className="w-full h-full object-cover rounded-2xl"
                 alt="project image"
               />
+
+              <div className="hidden group-hover:flex related_project-card_title">
+                <p className="w-full">{node?.title}</p>
+              </div>
             </Link>
           </div>
         ))}
