@@ -3,6 +3,7 @@ import {
   createProjectMutation,
   createUserMutation,
   getUserQuery,
+  projectsQuery,
 } from "@/graphql";
 import { GraphQLClient } from "graphql-request";
 
@@ -18,7 +19,7 @@ const apiKey = isProduction
 
 const serverUrl = isProduction
   ? process.env.NEXT_PUBLIC_SERVER_URL
-  : "http//localhost:3000";
+  : "http://localhost:3000";
 
 const client = new GraphQLClient(apiUrl);
 
@@ -50,6 +51,7 @@ export const createUser = (name: string, email: string, avatarUrl: string) => {
 
 export const fetchToken = async () => {
   try {
+    console.log("serverUrl", serverUrl);
     const response = await fetch(`${serverUrl}/api/auth/token`);
     return response.json();
   } catch (e) {
@@ -90,4 +92,12 @@ export const createNewProject = async (
     };
     return makeGraphQLRequest(createProjectMutation, variables);
   }
+};
+
+export const fetchAllProjects = async (
+  category?: string,
+  endcursor?: string
+) => {
+  client.setHeader("x-api-key", apiKey);
+  return makeGraphQLRequest(projectsQuery, { category, endcursor });
 };
