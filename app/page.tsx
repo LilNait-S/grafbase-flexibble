@@ -2,7 +2,6 @@ import { ProjectInterface } from "@/common.types";
 import Categories from "@/components/Categories";
 import LoadMore from "@/components/LoadMore";
 import ProjectCard from "@/components/ProjectCard";
-
 import { fetchAllProjects } from "@/lib/actions";
 
 type ProjectSearch = {
@@ -18,9 +17,9 @@ type ProjectSearch = {
 };
 
 type SearchParams = {
-  category?: string;
-  endCursor?: string;
-};
+  category?: string | null;
+  endCursor?: string | null;
+}
 
 type Props = {
   searchParams: SearchParams;
@@ -32,7 +31,7 @@ export const revalidate = 0;
 
 const Home = async ({ searchParams: { category, endCursor } }: Props) => {
 
-  const data = (await fetchAllProjects(category, endCursor)) as ProjectSearch;
+  const data = await fetchAllProjects(category, endCursor) as ProjectSearch;
 
   const projectsToDisplay = data?.projectSearch?.edges || [];
 
