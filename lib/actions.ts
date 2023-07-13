@@ -55,7 +55,7 @@ export const createUser = (name: string, email: string, avatarUrl: string) => {
 
 export const fetchToken = async () => {
   try {
-    const response = await fetch(`${serverUrl}/api/auth/token`);
+    const response = await fetch(`https://flexibble-nextjs13-pearl.vercel.app/api/auth/token`);
     return response.json();
   } catch (e) {
     throw e;
