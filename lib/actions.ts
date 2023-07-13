@@ -55,7 +55,7 @@ export const createUser = (name: string, email: string, avatarUrl: string) => {
 
 export const fetchToken = async () => {
   try {
-    const response = await fetch(`https://flexibble-nextjs13-pearl.vercel.app/api/auth/token`);
+    const response = await fetch(`${serverUrl}/api/auth/token`);
     return response.json();
   } catch (e) {
     throw e;
@@ -97,12 +97,10 @@ export const createNewProject = async (
   }
 };
 
-export const fetchAllProjects = async (
-  category?: string,
-  endCursor?: string
-) => {
+export const fetchAllProjects = (category?: string | null, endcursor?: string | null) => {
   client.setHeader("x-api-key", apiKey);
-  return makeGraphQLRequest(projectsQuery, { category, endCursor });
+
+  return makeGraphQLRequest(projectsQuery, { category, endcursor });
 };
 
 export const getProjectDetails = (id: string) => {

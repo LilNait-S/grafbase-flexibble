@@ -1,7 +1,7 @@
 "use client";
 
 import { categoryFilters } from "@/constants";
-import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { usePathname, useSearchParams , useRouter } from "next/navigation";
 
 const Categories = () => {
   const router = useRouter();
