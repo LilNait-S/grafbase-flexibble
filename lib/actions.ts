@@ -3,6 +3,7 @@ import {
   createProjectMutation,
   createUserMutation,
   deleteProjectMutation,
+  getAllProjectsQuery,
   getProjectByIdQuery,
   getProjectsOfUserQuery,
   getUserQuery,
@@ -97,13 +98,22 @@ export const createNewProject = async (
   }
 };
 
-export const fetchAllProjects = (category?: string | null, endcursor?: string | null) => {
-
-  console.log("category", category)
-  console.log("endcursor", endcursor)
+export const fetchAllProjects = (
+  category?: string | null,
+  endCursor?: string | null
+) => {
   client.setHeader("x-api-key", apiKey);
 
-  return makeGraphQLRequest(projectsQuery, { category, endcursor });
+  const variables = category
+    ? {
+        category,
+        endCursor,
+      }
+    : { endCursor };
+  const first = 4;
+  return category
+    ? makeGraphQLRequest(projectsQuery, variables)
+    : makeGraphQLRequest(getAllProjectsQuery, variables);
 };
 
 export const getProjectDetails = (id: string) => {

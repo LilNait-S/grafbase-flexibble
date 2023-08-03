@@ -54,35 +54,7 @@ export const createUserMutation = `
 	}
 `;
 
-export const projectsQuery = `
-  query getProjects($category: String, $endCursor: String) {
-    projectSearch(first: 8, after: $endCursor, filter: {category: {eq: $category}}) {
-      pageInfo {
-        hasNextPage
-        hasPreviousPage
-        startCursor
-        endCursor
-      }
-      edges {
-        node {
-          title
-          githubUrl
-          description
-          liveSiteUrl
-          id
-          image
-          category
-          createdBy {
-            id
-            email
-            name
-            avatarUrl
-          }
-        }
-      }
-    }
-  }
-`;
+
 
 export const getProjectByIdQuery = `
   query GetProjectById($id: ID!) {
@@ -134,6 +106,66 @@ export const getProjectsOfUserQuery = `
             id
             title
             image
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const projectsQuery = `
+  query getProjects($category: String, $endCursor: String) {
+    projectSearch(first: 8, after: $endCursor, filter: {category: {eq: $category}}) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+      edges {
+        node {
+          title
+          githubUrl
+          description
+          liveSiteUrl
+          id
+          image
+          category
+          createdBy {
+            id
+            email
+            name
+            avatarUrl
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const getAllProjectsQuery = `
+  query allProjects($endCursor: String) {
+    projectSearch(first: 4, after: $endCursor) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+      edges {
+        node {
+          title
+          githubUrl
+          description
+          liveSiteUrl
+          id
+          image
+          category
+          createdBy {
+            id
+            email
+            name
+            avatarUrl
           }
         }
       }
